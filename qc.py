@@ -21,7 +21,7 @@ class TiingoNewsDataAlgorithm(QCAlgorithm):
         # Historical data
         # history = self.History(self.tiingo_symbol, 5, Resolution.Daily)
         # self.Debug(f"We got {len(history)} items from our history request")
-        openai.api_key = "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"
+        openai.api_key = ""
         self.news_count = 0
         
         
