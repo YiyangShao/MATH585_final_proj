@@ -2,6 +2,15 @@
 
 Team SharpeInfinite
 
+Elinor Cheng <br />
+Lingrui Fan <br />
+Qijun Yang <br />
+Qiyu Wu <br />
+Yiyang Shao <br />
+
+
+
+
 ## Files
 
 QC algorith is in qc.py
