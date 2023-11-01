@@ -1,10 +1,20 @@
 ## Analyze Sentiment Analysis
 
 - (Finished) Speed up running time 
-- Compare GPT sentiment with other sentiment analysis tools
+- (Finish NLTK) Compare GPT sentiment with other sentiment analysis tools
 - Design an experiment based on sentiment result v.s. future return
 - Try prompt engineering: use rate 1-10
 - crawl time v.s. publish time
+
+### Improve speeding up
+May need to build a backend server for QuantConnect
+
+### Improve model analysis
+Get a larger dataset
+Get another model
+Get GPT4
+
+
 
 
 
