@@ -4,12 +4,15 @@ import numpy as np
 import openai
 #endregion
 
+import pandas as pd
+from gpt_prompt import get_sentiment_general, get_sentiment_general_parallel
+
 
 class TiingoNewsDataAlgorithm(QCAlgorithm):
 
     def Initialize(self) -> None:
-        self.SetStartDate(2021, 6, 30)
-        self.SetEndDate(2021, 6, 30)
+        self.SetStartDate(2021, 3, 29)
+        self.SetEndDate(2021, 3, 30)
         self.SetCash(1000000)
         self.current_holdings = 0
         self.target_holdings = 0
@@ -21,17 +24,15 @@ class TiingoNewsDataAlgorithm(QCAlgorithm):
         # Historical data
         # history = self.History(self.tiingo_symbol, 5, Resolution.Daily)
         # self.Debug(f"We got {len(history)} items from our history request")
-        openai.api_key = ""
-        self.news_count = 0
+        openai.api_key = "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"
+        self.sentiments = []
+        
         
         
     def OnData(self, slice: Slice) -> None:
         if slice.ContainsKey(self.tiingo_symbol):
-            self.news_count += 1
-            # # Assign a sentiment score to the news article
-            # title_words =slice[self.tiingo_symbol].Title + slice[self.tiingo_symbol].Description
             title_words = slice[self.tiingo_symbol].Description
-            response = self.get_sentiment_completion(title_words)
+            response = get_sentiment_general(title_words)[0]
             score = 0
             if response == "BULLISH":
                 score = 1
@@ -39,33 +40,24 @@ class TiingoNewsDataAlgorithm(QCAlgorithm):
                 score = -1
             elif response == "NEUTRAL":
                 score = 0
-                    
+            
+            self.sentiments.append(score)
+            if len(self.sentiments) > 100:
+                self.sentiments.pop(0)
+            self.target_holdings = sum(self.sentiments)/100
+            self.Debug(f"{score} {self.target_holdings}")
+
             if score > 0:
                 self.target_holdings = 1
-                
             elif score < 0:
                 self.target_holdings = -1
-            
             else:
                 self.target_holdings = 0
             
-                self.Debug(f"{score} {response} {title_words} score {self.news_count}")
+            self.Debug(f"{score} {response} {title_words} score")
         
         if self.current_holdings != self.target_holdings:
             # self.Debug(f"Traded {self.current_holdings} {self.target_holdings}")
             self.SetHoldings(self.aapl, self.target_holdings)
             self.current_holdings = self.target_holdings
 
-    def get_sentiment_completion(self, question, model="gpt-3.5-turbo"):
-        system_analysis_prompt =  "You will work as a Sentiment Analysis for Financial News. \
-            You will only answer as: \n\n BEARISH, BULLISH, NEUTRAL. No further explanation=."
-        messages = []
-        messages = [{"role": "system", "content": system_analysis_prompt}]
-        messages.append({"role": "user", "content":question})
-        response = openai.ChatCompletion.create(
-            model=model,
-            messages=messages,
-            temperature=0,
-        )
-        # print(response)
-        return response.choices[0].message["content"]
