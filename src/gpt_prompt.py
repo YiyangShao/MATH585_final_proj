@@ -67,6 +67,16 @@ def get_sentiment_general_parallel(news_list, model="gpt-3.5-turbo", company=Non
     return pool_output
 
 
+def get_sentiment_general_sequence(news_list, model="gpt-3.5-turbo", company=None, output="polar", explanation=False, threads=10):
+    t0 = time.time()
+    pool_output = []
+    for i in range(len(news_list)):
+        pool_output.append(get_sentiment_general(news_list[i], model, company, output, explanation))
+    t1 = time.time()
+    print(f" average running time: {(t1-t0)/len(news_list):.2f} second")
+    return pool_output
+
+
 class Prompt:
     def __init__(self):
         _ = load_dotenv(find_dotenv())
