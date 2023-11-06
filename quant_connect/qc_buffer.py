@@ -11,8 +11,8 @@ from gpt_prompt import get_sentiment_general, get_sentiment_general_parallel, ge
 class TiingoNewsDataAlgorithm(QCAlgorithm):
 
     def Initialize(self) -> None:
-        self.start_date = datetime(2021, 1, 29)
-        self.end_date = datetime(2021, 2, 5)
+        self.start_date = datetime(2021, 1, 1)
+        self.end_date = datetime(2021, 1, 20)
         
         self.SetStartDate(self.start_date)
         self.SetEndDate(self.end_date)
@@ -39,12 +39,12 @@ class TiingoNewsDataAlgorithm(QCAlgorithm):
         for i in range(self.sample_size):
             sample_list.append(sample["title"][i] + sample["description"][i])
         # response = get_sentiment_general_parallel(sample_list)
-        response = get_sentiment_general_sequence(sample_list)
+        response = get_sentiment_general_sequence(sample_list, company = "Apple")
         dic_gpt = {"BULLISH" : 1, "NEUTRAL" : 0, "BEARISH" : -1,}
         output = [dic_gpt[r[0]] for r in response]
-        self.Debug(f"{sample.iloc[0,:]}")
-        self.Debug(f"We got {sample.shape[0]} items from our history request at {self.Time}")
-        self.Debug(f"{response} {output}")
+        # self.Debug(f"{sample.iloc[0,:]}")
+        # self.Debug(f"We got {sample.shape[0]} items from our history request at {self.Time}")
+        # self.Debug(f"{response} {output}")
         self.Debug(f"target holding is {sum(output)/self.sample_size}")
         self.target_holdings = sum(output)/self.sample_size
         
