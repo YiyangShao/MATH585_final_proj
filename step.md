@@ -53,3 +53,7 @@ https://www.quantconnect.com/terminal/processCache?request=embedded_backtest_cf3
 2. Oldest Model in GPT-3: Oct 2019
 3. Get data from logs
 4. 2021 model and 2023 model has 80% similarity on 2022 news data
+
+
+## Next Step for 11/22:
+1. what model is good for sentiment score
