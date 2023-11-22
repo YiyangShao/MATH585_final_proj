@@ -41,6 +41,7 @@ def get_sentiment_general(news, model="gpt-3.5-turbo", company=None, output="pol
         temperature=0,
     )
     response_message = response.choices[0].message["content"]
+    # tokens = response.usage["total_tokens"]
     if explanation:
         ans = response_message.split("\n")
         if len(ans) == 1:
