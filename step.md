@@ -51,3 +51,5 @@ https://www.quantconnect.com/terminal/processCache?request=embedded_backtest_cf3
 ## Update by 11/22
 1. Only way to prevent lookahead: Temporal Awareness in Queries
 2. Oldest Model in GPT-3: Oct 2019
+3. Get data from logs
+4. 2021 model and 2023 model has 80% similarity on 2022 news data
