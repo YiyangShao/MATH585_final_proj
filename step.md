@@ -57,3 +57,6 @@ https://www.quantconnect.com/terminal/processCache?request=embedded_backtest_cf3
 
 ## Next Step for 11/22:
 1. what model is good for sentiment score
+2. paper p15
+3. get price change(return) for different lags
+4. get correlation for risk level and price change
