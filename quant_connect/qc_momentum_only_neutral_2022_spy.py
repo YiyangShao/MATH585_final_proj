@@ -16,11 +16,13 @@ from datetime import timedelta
 class TiingoNewsDataAlgorithm(QCAlgorithm):
 
     def __init__(self):
-        self.alpha1 = 0
-        self.alpha2 = 0
-        self.alpha3 = -0.4
-        self.link = "https://www.dropbox.com/scl/fi/eor7zjxucrq0nwe5m7adu/news_score_apple_2022_all.csv?rlkey=7fjfit8wew37zrv6sa6xnflj0&dl=1"
-        self.holding_time = 60
+        self.alpha1 = 0.4
+        self.alpha2 = -0.4
+        self.alpha3 = 0.4
+        self.link = "https://www.dropbox.com/scl/fi/n5waq5axak3s9djm0jncn/news_score_spy_2022_all.csv?rlkey=o95w5p5yx2ei6rhax8baqinf1&dl=1"
+        self.holding_time1 = 60
+        self.holding_time2 = 5
+        self.holding_time3 = 60
         
         pass
 
@@ -42,7 +44,7 @@ class TiingoNewsDataAlgorithm(QCAlgorithm):
         self.timer3 = []
         
         # Requesting data
-        self.aapl = self.AddEquity("AAPL", Resolution.Minute).Symbol
+        self.aapl = self.AddEquity("SPY", Resolution.Minute).Symbol
         self.tiingo_symbol = self.AddData(TiingoNews, self.aapl, resolution=Resolution.Minute).Symbol
 
         self.num_bull = 0
@@ -70,7 +72,7 @@ class TiingoNewsDataAlgorithm(QCAlgorithm):
         if self.timer1:
             to_sell1 = 0
             for t in self.timer1:
-                if (cur_time - t) > timedelta(minutes=self.holding_time):
+                if (cur_time - t) > timedelta(minutes=self.holding_time1):
                     to_sell1 += 1
             self.timer1 = self.timer1[to_sell1:]
             self.target_holdings -= self.alpha1 * to_sell1
@@ -78,7 +80,7 @@ class TiingoNewsDataAlgorithm(QCAlgorithm):
         if self.timer2:
             to_sell2 = 0
             for t in self.timer2:
-                if (cur_time - t) > timedelta(minutes=self.holding_time):
+                if (cur_time - t) > timedelta(minutes=self.holding_time2):
                     to_sell2 += 1
             self.timer2 = self.timer2[to_sell2:]
             self.target_holdings -= self.alpha2 * to_sell2
@@ -86,7 +88,7 @@ class TiingoNewsDataAlgorithm(QCAlgorithm):
         if self.timer3:
             to_sell3 = 0
             for t in self.timer3:
-                if (cur_time - t) > timedelta(minutes=self.holding_time):
+                if (cur_time - t) > timedelta(minutes=self.holding_time3):
                     to_sell3 += 1
             self.timer3 = self.timer3[to_sell3:]
             self.target_holdings -= self.alpha3 * to_sell3
