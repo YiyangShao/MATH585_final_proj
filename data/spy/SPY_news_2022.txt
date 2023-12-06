@@ -1,8 +1,3 @@
-2022-01-01 00:00:00 Launching analysis for ba24f3e27a2bc4216ca34a20410a7585 with LEAN Engine v2.5.0.0.16066
-2022-01-01 00:00:00 Usage of QCAlgorithm.OnEndOfDay() without a symbol will be deprecated August 2021. Always use a symbol when overriding this method: OnEndOfDay(symbol)
-2022-01-01 00:00:00 Algorithm starting warm up...
-2022-01-01 00:00:00 Usage of QCAlgorithm.OnEndOfDay() without a symbol will be deprecated August 2021. Always use a symbol when overriding this method: OnEndOfDay(symbol)
-2022-01-01 00:17:30 Algorithm finished warming up.
 2022-01-01 00:17:30 The Week On Wall Street: The Santa Rally Yields New Highs For The S&P And The DJIA2021 produced double-digit gains for all of the major indices. Click here to read this week's edition of The Week On Wall Street.
 2022-01-01 01:03:35 2 Little Known Dividend Growth Powerhouses For 2022I offer two under-the-radar stocks that offer (at least the potential of) above-average yields and strong growth runways as far as the eye can see. Find them here.
 2022-01-01 02:05:22 Covid Omicron In Rear View Mirror: Will We Be So Lucky With Fed Policy?As Omicron fades into the dust as a market disrupter, inflation and interest rates will return as the the preeminent negative market obsessions.
