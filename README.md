@@ -19,3 +19,9 @@ QC algorith is in qc.py
 Future steps are in step.md
 
 ## Usage
+
+
+## Backtest
+For 2022 Apple
+
+https://www.quantconnect.com/terminal/processCache?request=embedded_backtest_6a535be05fc9e931d60355f72f7a089f.html
