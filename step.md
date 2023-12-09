@@ -60,3 +60,6 @@ https://www.quantconnect.com/terminal/processCache?request=embedded_backtest_cf3
 2. paper p15
 3. get price change(return) for different lags
 4. get correlation for risk level and price change
+
+## 12/6 update:
+1 
