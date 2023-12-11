@@ -48,6 +48,7 @@ class TiingoNewsDataAlgorithm(QCAlgorithm):
         self.sentiments = []
 
         file = self.Download("https://www.dropbox.com/scl/fi/n9y784pd2zumle5v6umv7/news_score_apple_2022_3.csv?rlkey=n97ctcjuab31qse9lvdnel6yj&dl=1")
+        
         self.score_df = pd.read_csv(StringIO(file))
 
         # file = StringIO(csv)

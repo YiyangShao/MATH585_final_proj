@@ -11,17 +11,19 @@ from datetime import timedelta
 
 
 
-
+# https://www.quantconnect.com/terminal/processCache?request=embedded_backtest_86c13c3d961b8009d7f767e12e857a0b.html
 
 class TiingoNewsDataAlgorithm(QCAlgorithm):
 
     def __init__(self):
-        self.alpha1 = 0.4
-        self.alpha2 = -0.4
-        self.alpha3 = 0.4
-        self.holding_time1 = 60
-        self.holding_time2 = 5
+        self.alpha1 = 0.2
+        self.alpha2 = 0.2
+        self.alpha3 = -0.2
+        self.holding_time1 = 20
+        self.holding_time2 = 60
         self.holding_time3 = 60
+        self.long_thres = 1
+        self.short_thres = -1
 
     def Initialize(self) -> None:
         self.start_date = datetime(2023, 1, 1)
@@ -51,7 +53,7 @@ class TiingoNewsDataAlgorithm(QCAlgorithm):
         self.prev_price = 0
         self.sentiments = []
 
-        file = self.Download("https://www.dropbox.com/scl/fi/n9y784pd2zumle5v6umv7/news_score_apple_2022_3.csv?rlkey=n97ctcjuab31qse9lvdnel6yj&dl=1")
+        file = self.Download("https://www.dropbox.com/scl/fi/mx7tm4z0v2nocbdu5aab7/news_score_apple_2023_all.csv?rlkey=xgettu0emvbcmpr8x3ptq71eh&dl=1")
         self.score_df = pd.read_csv(StringIO(file))
 
         self.score_dic = self.score_df.set_index('date')['score'].to_dict()
@@ -85,7 +87,7 @@ class TiingoNewsDataAlgorithm(QCAlgorithm):
 
         if slice.ContainsKey(self.tiingo_symbol) and self.Securities[self.aapl].Price != None:
             title_words = slice[self.tiingo_symbol].Title + slice[self.tiingo_symbol].Description
-            cur_time = f"{self.Time}"
+            cur_time = f"{self.Time}"[:19]
             if cur_time in self.score_dic:
                 score = self.score_dic[cur_time]
                 if score == 1:
@@ -98,12 +100,26 @@ class TiingoNewsDataAlgorithm(QCAlgorithm):
                     self.target_holdings += self.alpha3
                     self.timer3.append(self.Time)
         
+        # if self.current_holdings != self.target_holdings:
+        #     self.target_holdings = round(self.target_holdings, 2)
+        #     self.real_holdings = self.target_holdings
+        #     if self.target_holdings > 1:
+        #         self.real_holdings = 1
+        #     if self.target_holdings < -1:
+        #         self.real_holdings = -1
+        #     self.Debug(f"{self.current_holdings} {self.target_holdings} {self.Time}")
+        #     self.SetHoldings(self.aapl,  self.real_holdings)
+        #     self.current_holdings = self.target_holdings
+
+
+    def OnEndOfDay(self):
         if self.current_holdings != self.target_holdings:
             self.target_holdings = round(self.target_holdings, 2)
+            self.real_holdings = self.target_holdings
             if self.target_holdings > 1:
-                self.target_holdings = 1
+                self.real_holdings = 1
             if self.target_holdings < -1:
-                self.target_holdings = -1
+                self.real_holdings = -1
             self.Debug(f"{self.current_holdings} {self.target_holdings} {self.Time}")
-            self.SetHoldings(self.aapl, self.target_holdings)
+            self.SetHoldings(self.aapl,  self.real_holdings)
             self.current_holdings = self.target_holdings
