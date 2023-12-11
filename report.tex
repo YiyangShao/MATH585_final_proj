@@ -1,0 +1,63 @@
+\chapter{Strategy Yiyang GPT-based Sentiment Strategy}
+
+\section{Background}
+
+Sentiment analysis, a subfield of natural language processing (NLP), plays a crucial role in financial markets. It involves analyzing subjective information in text data to determine the prevailing sentiment towards a particular stock or the market as a whole. In stock trading, sentiment analysis is used to gauge investor sentiment, which can be a powerful indicator of market trends. Positive sentiment typically correlates with rising stock prices, while negative sentiment often precedes a decline in stock values. This relationship stems from the behavioral economics principle that investor sentiment can significantly influence market movements. By effectively analyzing market sentiment, traders can gain insights into potential market shifts, allowing for more informed trading decisions.
+
+The Role of AI and ChatGPT in Sentiment Analysis
+The advent of artificial intelligence (AI) has revolutionized sentiment analysis in stock trading. AI algorithms, particularly those based on machine learning and natural language processing, can process and analyze vast amounts of textual data at a scale and speed unattainable by human analysts. This capability is pivotal in financial markets, where real-time data analysis is crucial for making timely decisions.
+
+Among AI tools, ChatGPT, a variant of the GPT (Generative Pre-trained Transformer) model developed by OpenAI, has shown remarkable abilities in understanding and generating human-like text. ChatGPT's sophisticated design allows it to understand context, interpret nuances, and analyze sentiment in text data efficiently. This makes it an ideal tool for conducting sentiment analysis in the financial domain, where the interpretation of news articles, financial reports, and social media posts can provide valuable insights into market sentiment.
+
+The use of sentiment analysis in stock trading is not new, but the integration of advanced models like ChatGPT is a relatively recent development. Previous approaches primarily relied on simpler text analysis techniques, such as keyword counting and basic natural language processing methods. These earlier models often struggled with the complexities of human language, such as sarcasm, idioms, and contextual meaning.
+
+Recent studies and applications have demonstrated the effectiveness of more advanced AI models in sentiment analysis for finance. For instance, research has shown that AI-driven sentiment analysis can predict stock market movements with a higher degree of accuracy compared to traditional methods. The integration of AI tools like ChatGPT in this domain is a promising development, offering a more nuanced and sophisticated analysis of market sentiment.
+
+This project aims to leverage the capabilities of ChatGPT to build a stock trading strategy informed by AI-driven sentiment analysis. By doing so, it seeks to contribute to the growing body of work at the intersection of AI, sentiment analysis, and financial trading.
+
+\section{Methods}
+
+\subsection{Data Collection}
+
+The primary data source for this project is a collection of news articles related to Apple Inc., obtained from Tiingo, a financial data platform. This data was accessed and compiled using Quantconnect, an algorithmic trading platform that provides an interface for data retrieval and strategy implementation. The choice of Apple as the focus of this study stems from its status as a major player in the technology sector and its significant impact on market trends.
+
+The process involved setting up a data pipeline in Quantconnect to regularly query and retrieve news articles from Tiingo that mentioned Apple. This setup ensured a consistent flow of up-to-date information, which is crucial for real-time sentiment analysis. The data collected included various attributes of each news article, such as the publication date, title, and full text content. Emphasis was placed on ensuring the comprehensiveness and reliability of the data, as the accuracy of sentiment analysis heavily depends on the quality of the input data.
+
+
+
+\subsection{ChatGPT Usage and Addressing Lookahead Bias}
+For the sentiment analysis part of the project, ChatGPT, accessed through the OpenAI API, was utilized. The integration of ChatGPT involved developing a series of prompts to efficiently process the news data and output a sentiment classification. Each news article was fed into ChatGPT, which was then tasked with analyzing the text and categorizing the sentiment as either 'Bullish,' 'Neutral,' or 'Bearish.'
+
+The process began by refining the prompts to ensure that ChatGPT could understand and interpret the context of the financial news accurately. This refinement involved testing different phrasing and structures to find the most effective way to elicit a clear and accurate sentiment analysis from the AI. Once the optimal prompt structure was established, it was used consistently across all data to maintain uniformity in the analysis process.
+
+The integration was designed to be as automated as possible, with minimal manual intervention, to allow for scalability and efficiency. The OpenAI API provided a robust and reliable interface for this integration, enabling the seamless processing of large volumes of textual data.
+
+Sentiment Analysis Output and Data Processing
+After ChatGPT analyzed each article, the output sentiment was recorded and linked to the corresponding news item in the dataset. This process resulted in a comprehensive dataset that not only included the original news articles but also the sentiment analysis results for each piece.
+
+The final step in the data preparation phase involved cleaning and organizing the dataset for further analysis. This included filtering out any irrelevant or redundant data, ensuring data consistency, and preparing the dataset for integration into the stock trading strategy. The prepared dataset served as the foundation for the exploratory data analysis and the subsequent development of the trading strategy.
+
+A critical consideration in this project was the avoidance of lookahead bias, a common pitfall in financial modeling where future information is inadvertently used in making past decisions. To address this, a specific version of ChatGPT, trained only on data available up to September 2021, was employed for sentiment analysis. This precaution ensured that the AI model did not have access to any information or trends that emerged after September 2021, thereby eliminating the risk of lookahead bias.
+
+The backtesting of the trading strategy was conducted on data from January 2022 onwards. This approach created a clear temporal separation between the training data of ChatGPT and the period over which the trading strategy was tested. By doing so, the project adhered to a rigorous standard of temporal integrity, ensuring that the sentiment analysis and subsequent trading strategy were based solely on information that would have been available to investors at that time. This methodological rigor enhances the validity and reliability of the backtesting results, providing a more accurate representation of the strategy's potential performance in real-world trading scenarios.
+
+\subsection{Prompt Engineering}
+
+The initial stage of prompt engineering involved formulating prompts that effectively guide ChatGPT to comprehend and analyze the sentiment of financial news articles. The primary objective was to create prompts that are concise yet comprehensive enough to capture the essence of the news articles. An example of an initial prompt might be: "Analyze the following news article about Apple and summarize its overall sentiment: Is it bullish, bearish, or neutral? Provide reasons for your assessment."
+
+The effectiveness of the initial prompts was evaluated through a series of iterative tests. This process involved feeding a diverse set of news articles to ChatGPT and assessing the accuracy of its sentiment analysis. Feedback from these tests was used to refine the prompts, focusing on improving clarity and reducing ambiguities that could lead to misinterpretation. For instance, if the initial prompt led to overly general responses, it could be modified to: "Read the following news article on Apple. Identify and summarize key points that indicate a bullish, bearish, or neutral market sentiment for Apple, and conclude with a clear sentiment classification."
+
+To enhance the accuracy of sentiment analysis, prompts were designed to encourage ChatGPT to consider specific financial contexts and terminologies. This involved instructing the AI to pay attention to key financial indicators, market trends, and specific language that typically signify market sentiments. For example, a more contextual prompt might be: "Evaluate the following article about Apple, focusing on financial indicators such as earnings, market trends, and investor opinions. Determine if the overall sentiment is bullish, bearish, or neutral, citing specific financial terms and contexts as evidence."
+
+Financial news often contains ambiguous or conflicting information. To address this, prompts were engineered to guide ChatGPT in dealing with ambiguity in the data. The AI was prompted to indicate uncertainties or mixed sentiments in its analysis where applicable. A prompt for such scenarios could be: "Assess this Apple news article for sentiment. If the information is mixed or ambiguous, describe the contrasting sentiments and rate the overall sentiment as neutral, providing justification for this rating."
+
+A continuous feedback loop was established where the results of sentiment analysis were regularly reviewed, and the prompts were adjusted accordingly. This approach ensured that the prompts remained effective and relevant as the project progressed. Regular testing and refinement of prompts based on real-time data helped in adapting to evolving market sentiments and linguistic nuances in financial reporting.
+
+
+
+\subsection{EDA on Sentiment Analysis}
+\lipsum[6] 
+
+
+\subsection{Strategy Formulation}
+\lipsum[7] 

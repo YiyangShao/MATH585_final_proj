@@ -31,7 +31,8 @@ def get_sentiment_general(news, model="gpt-3.5-turbo", company=None, output="pol
     else:
         output_prompt = f"Then, {explanation_addup}you will answer with an integer between 1 and 10, with 1 being most BEARISH, 10 being most BULLISH."
         
-    system_analysis_prompt =  f"You will work as a Sentiment Analysis for Financial News {company_prompt}. {explanation_prompt} {output_prompt}"
+    system_analysis_prompt =  f"You will work as a Sentiment Analysis Expert for Financial News {company_prompt}, focusing on financial indicators such as earnings, market trends, and investor opinions. {explanation_prompt} {output_prompt}"
+    print(system_analysis_prompt)
     messages = []
     messages = [{"role": "system", "content": system_analysis_prompt}]
     messages.append({"role": "user", "content":news})
